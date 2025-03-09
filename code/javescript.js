@@ -9,6 +9,21 @@ function Album (albumName, artistName, rating, productionYear) {
     this.productionYear = productionYear;
 }
 
+function addDivWithAlbum(album, parentid) {
+    let parentElement = document.getElementById(parentid);
+    let elementToAdd =
+      "<div>" +
+      album.albumName +
+      ": made by " +
+      album.artistName +
+      " | Album has a " +
+      album.rating +
+      " rating, and is produced in " +
+      album.productionYear +
+      "</div>";
+    parentElement.innerHTML = parentElement.innerHTML + elementToAdd;
+  }
+
 //når man bruger async function skal man være sikker på
 //data'en kommer ind først - der bruges metoden .then
 fetchContent("albums.json").then((albums) => {
@@ -31,17 +46,14 @@ let albumObjects = []
     albumObjects.push(album);
   };
   //Laver et loop der sætter de 4 ting ind på hjemmesiden
-  //document.getElementById("Musikarkiv").innerHTML = albumObjects[0].albumName
-  const tbody=document.getElementById("musikarkiv").getElementsByTagName("tbody")[0];
-  for (let i=0 ; i < albumObjects.length; i++) {
-    const tr=document.getElementById("tr");
+  albumObjects.forEach(
 
-    const tdalbumName=document.createElement("td");
-    tdalbumName.textcontent=albumObjects[i].albumName;
+    function (a) {
+      //Call to the addDivWithAlbum()-function in ln 10
+      addDivWithAlbum(a, "content");
+    }
+);
 
-    tr.appendChild(tdalbumName);
-    tbody.appendChild(tr);
-  }
 });
 
 //generelt fortæller async at koden ikke behøver vente til done
