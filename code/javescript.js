@@ -13,7 +13,9 @@ function addDivWithAlbum(album, parentid) {
     let parentElement = document.getElementById(parentid);
     let elementToAdd =
       "<div>" +
+      "<b>" +
       album.albumName +
+      "</b>" +
       ": made by " +
       album.artistName +
       " | Album has a " +
