@@ -9,16 +9,17 @@ function Album (albumName, artistName, rating, productionYear) {
     this.productionYear = productionYear;
 }
 
-//når man bruger async function skal man være sikker på
-//data'en kommer ind først - der bruges metoden .then
+//for at være sikker på data'en kommer ind først 
+// bruges metoden .then
 fetchContent("albums.json").then((albums) => {
 
-  //bruger loop til at sætte ind i array
+  //oprettet et nyt tomt array hvor der bruges for-loop til at 
+  // sætte informationerne ind
 let albumObjects = []
 
 //addere først med +1 efter hele loopet er kørt igennem
-//for at undgå hardcoding bruges i og album.length - altså istedet for
-//at skrive 0 < 14
+//for at undgå hardcoding bruges [i] og album.length 
+// - altså istedet for at skrive 0 < 14
   for (let i=0 ; i < albums.length; i++) {
     const album = new Album (
         albums[i].albumName,
@@ -31,37 +32,34 @@ let albumObjects = []
     albumObjects.push(album);
   };
 
+  //laver et loop som skriver html for en
+  // der tilføjes også en toggle knap og et div pr element
 for(i = 0; i<albumObjects.length; i++){
     let parentElement = document.getElementById("content");
     let elementToAdd =
-      "<h3>"+albumObjects[i].albumName +"</h3>"+
-      "<button onclick='button(" + i+")'>se mere</button>" +
-
+    "<h3>"+[i]+ ". " + albumObjects[i].albumName +"</h3>"+
+      "<button onclick='button(" + i+")'>More about the album</button>" +
       "<div id='" + i + "'style='display: none;'>"+
-      "<p>made by " +
-      albumObjects[i].artistName +
-      "</p>"+
-      " has a " +
-      albumObjects[i].rating +
-      " rating, and is produced in " +
-      albumObjects[i].productionYear +
+
+      "<p>Made by " + albumObjects[i].artistName + "</p>"+
+      "<p>Has a rating of " + albumObjects[i].rating + "</p>"+
+      "Produced in " + albumObjects[i].productionYear +
+      
       "</div>" 
       ;
     parentElement.innerHTML = parentElement.innerHTML + elementToAdd;
   
-}
-
-
-
+  } 
 });
 
-//generelt fortæller async at koden ikke behøver vente til done
+//indsætningen af json
 async function fetchContent(url) {
     let request = await fetch(url);
     let json = await request.json();
     return json;
   }
 
+  //knap
   function button (id) {
     var x =document.getElementById(id);
     if (x.style.display ==="none") {
