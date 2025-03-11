@@ -9,23 +9,6 @@ function Album (albumName, artistName, rating, productionYear) {
     this.productionYear = productionYear;
 }
 
-function addDivWithAlbum(album, parentid) {
-    let parentElement = document.getElementById(parentid);
-    let elementToAdd =
-      "<div>" +
-      "<b>" +
-      album.albumName +
-      "</b>" +
-      ": made by " +
-      album.artistName +
-      " | Album has a " +
-      album.rating +
-      " rating, and is produced in " +
-      album.productionYear +
-      "</div>";
-    parentElement.innerHTML = parentElement.innerHTML + elementToAdd;
-  }
-
 //når man bruger async function skal man være sikker på
 //data'en kommer ind først - der bruges metoden .then
 fetchContent("albums.json").then((albums) => {
@@ -47,14 +30,28 @@ let albumObjects = []
     //sætter det ind i det tomme array "albumObjects"
     albumObjects.push(album);
   };
-  //Laver et loop der sætter de 4 ting ind på hjemmesiden
-  albumObjects.forEach(
 
-    function (a) {
-      //Call to the addDivWithAlbum()-function in ln 10
-      addDivWithAlbum(a, "content");
-    }
-);
+for(i = 0; i<albumObjects.length; i++){
+    let parentElement = document.getElementById("content");
+    let elementToAdd =
+      "<h3>"+albumObjects[i].albumName +"</h3>"+
+      "<button onclick='button(" + i+")'>se mere</button>" +
+
+      "<div id='" + i + "'style='display: none;'>"+
+      "<p>made by " +
+      albumObjects[i].artistName +
+      "</p>"+
+      " has a " +
+      albumObjects[i].rating +
+      " rating, and is produced in " +
+      albumObjects[i].productionYear +
+      "</div>" 
+      ;
+    parentElement.innerHTML = parentElement.innerHTML + elementToAdd;
+  
+}
+
+
 
 });
 
@@ -65,8 +62,11 @@ async function fetchContent(url) {
     return json;
   }
 
-
-
-  
-
-
+  function button (id) {
+    var x =document.getElementById(id);
+    if (x.style.display ==="none") {
+        x.style.display = "block";
+    } else {
+        x.style.display ="none";
+    }
+}
