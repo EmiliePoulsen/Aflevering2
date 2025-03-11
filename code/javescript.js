@@ -38,12 +38,12 @@ for(i = 0; i<albumObjects.length; i++){
     let parentElement = document.getElementById("content");
     let elementToAdd =
     "<h3>"+[i]+ ". " + albumObjects[i].albumName +"</h3>"+
-      "<button onclick='button(" + i+")'>More about the album</button>" +
+      "<button class='knap' onclick='button(" + i+")'>More about the album</button>" +
       "<div id='" + i + "'style='display: none;'>"+
 
-      "<p>Made by " + albumObjects[i].artistName + "</p>"+
-      "<p>Has a rating of " + albumObjects[i].rating + "</p>"+
-      "Produced in " + albumObjects[i].productionYear +
+      "<p><li> Made by " + albumObjects[i].artistName + "</li></p>"+
+      "<p><li>Has a rating of " + albumObjects[i].rating + "</li></p>"+
+      "<p><li>Produced in " + albumObjects[i].productionYear + "</li></p>"+
       
       "</div>" 
       ;
